@@ -1,5 +1,5 @@
 import commands from "./cache/commandCache.js"
-import { Client, CommandInteraction, Events, Routes } from "discord.js"
+import { Client, Events, Routes } from "discord.js"
 
 interface commandOptions {
     name: string,
