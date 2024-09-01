@@ -1,6 +1,5 @@
 # What is the Sigma Framework?
 Great question! The Sigma Framework is a framework built to go atop Discord.js for developing ForceBot! 
-Sadly, the framework is currently private, with no intention to go public anytime soon.
 
 # Documentation
 ## GetSigmaPackage(packagename, returndefault)
