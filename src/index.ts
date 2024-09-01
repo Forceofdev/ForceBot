@@ -7,7 +7,6 @@ async function main() {
 
     const token = process.env.TOKEN;
     await SigmaClient.init(token, { isDevBuild: true });
-    console.log(SigmaClient)
 
     setTimeout(() => {
         SigmaCommands.new({ name: 'test', description: 'A test of the SigmaCommands.new method', permissions: { developer: true }, run: (i) => { i.reply('i.reply() successful!') }})

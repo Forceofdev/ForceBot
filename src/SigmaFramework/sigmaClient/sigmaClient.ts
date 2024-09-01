@@ -14,8 +14,7 @@ class SigmaClient extends Client {
     }
     static init(token: string, options: initOptions) {
         const r = InitClient(token, options)
-        return r
-        //return promisify(() => { const a = 'skibidi' })
+        return r        
     }
 }
 

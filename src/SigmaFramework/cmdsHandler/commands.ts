@@ -11,12 +11,11 @@ interface commandOptions {
 }
 
 class Commands {
-    declareMetaData(options) {
-
-    }
-    static new(commandOptions: commandOptions) {
+    static async new(commandOptions: commandOptions) {
         const client: Client<true> = globalThis.activeClient
-        console.log({client})
+
+        const print = await globalThis.GetSigmaPackage('sigmaLog', true)
+        print('COMMANDS', `Loading command: ${commandOptions.name}`)
 
         client.rest.post(Routes.applicationCommands('1278953270353723442'), {
             body: {
@@ -31,6 +30,8 @@ class Commands {
         commands.set(commandOptions.name, { run: commandOptions.run, permissions: commandOptions.permissions })
         client.on(Events.InteractionCreate, interaction => {
             if (!interaction.isCommand()) return
+            print('COMMANDS', `Command requested: ${interaction.commandName}`)
+
             if (interaction.commandName == commandOptions.name) commandOptions.run(interaction)
         })
     }

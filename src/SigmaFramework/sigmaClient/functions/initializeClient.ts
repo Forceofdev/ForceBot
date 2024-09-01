@@ -10,10 +10,9 @@ export default async function InitClient(token: string, options: { isDevBuild: b
         GatewayIntentBits.GuildMessages,
         GatewayIntentBits.MessageContent,
         GatewayIntentBits.DirectMessages
-    ],}) // default intents :shrug:
+    ],}) // Default intents
 
     globalThis.activeClient = readyClient
-    console.log(globalThis.activeClient)
 
     readyClient.login(token)
     return readyClient
