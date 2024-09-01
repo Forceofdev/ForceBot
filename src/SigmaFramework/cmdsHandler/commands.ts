@@ -17,7 +17,7 @@ class Commands {
         const print = await globalThis.GetSigmaPackage('sigmaLog', true)
         print('COMMANDS', `Loading command: ${commandOptions.name}`)
 
-        client.rest.post(Routes.applicationCommands('1278953270353723442'), {
+        client.rest.post(Routes.applicationCommands(client.user.id), {
             body: {
                 name: commandOptions.name,
                 description: commandOptions.description,
