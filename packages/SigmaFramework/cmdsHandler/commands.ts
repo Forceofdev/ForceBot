@@ -1,5 +1,6 @@
 import commands from "./cache/commandCache.js"
 import { Client, Events, Routes } from "discord.js"
+import SigmaCommandInteraction from "./interaction/interactionObj.js"
 
 interface commandOptions {
     name: string,
@@ -8,6 +9,11 @@ interface commandOptions {
         developer: boolean
     },
     run: Function,
+    options: [{
+        name: string,
+        type: number,
+        description: string
+    }]
 }
 
 class Commands {
@@ -22,18 +28,19 @@ class Commands {
                 name: commandOptions.name,
                 description: commandOptions.description,
                 type: 1,
+                options: commandOptions.options,
                 integration_types: [0],
                 contexts: [0, 1],
             },
         })
 
         commands.set(commandOptions.name, { run: commandOptions.run, permissions: commandOptions.permissions })
-        client.on(Events.InteractionCreate, interaction => {
+        /*client.on(Events.InteractionCreate, interaction => {
             if (!interaction.isCommand()) return
             print('COMMANDS', `Command requested: ${interaction.commandName}`)
 
             if (interaction.commandName == commandOptions.name) commandOptions.run(interaction)
-        })
+        })*/
     }
 }
 

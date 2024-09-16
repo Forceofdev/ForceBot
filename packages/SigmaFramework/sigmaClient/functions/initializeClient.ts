@@ -1,6 +1,5 @@
 import { GatewayIntentBits } from "discord.js"
-
-const GetSigmaPackage = globalThis.GetSigmaPackage
+import {GetSigmaPackage} from 'sigmaframework'
 
 export default async function InitClient(token: string, options: { isDevBuild: boolean }) {
     const SigmaClient = await GetSigmaPackage('sigmaClient', true)
