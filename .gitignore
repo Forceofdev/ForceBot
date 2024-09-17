@@ -2,3 +2,4 @@ node_modules
 compiled
 .env
 wor
+.DS_STORE

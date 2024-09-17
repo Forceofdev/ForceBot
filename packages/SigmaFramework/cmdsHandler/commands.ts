@@ -23,6 +23,7 @@ class Commands {
         const print = await globalThis.GetSigmaPackage('sigmaLog', true)
         print('COMMANDS', `Loading command: ${commandOptions.name}`)
 
+        // Use the REST api to register the command
         client.rest.post(Routes.applicationCommands(client.user.id), {
             body: {
                 name: commandOptions.name,
@@ -33,14 +34,9 @@ class Commands {
                 contexts: [0, 1],
             },
         })
-
+        
+        // Save the command to the cache
         commands.set(commandOptions.name, { run: commandOptions.run, permissions: commandOptions.permissions })
-        /*client.on(Events.InteractionCreate, interaction => {
-            if (!interaction.isCommand()) return
-            print('COMMANDS', `Command requested: ${interaction.commandName}`)
-
-            if (interaction.commandName == commandOptions.name) commandOptions.run(interaction)
-        })*/
     }
 }
 

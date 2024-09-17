@@ -11,7 +11,7 @@ export default async function InitClient(token: string, options: { isDevBuild: b
         GatewayIntentBits.DirectMessages
     ],}) // Default intents
 
-    globalThis.activeClient = readyClient
+    globalThis.activeClient = readyClient // Make the client globally available (so you don't have to have it passed in arguments for all the external functions)
 
     readyClient.login(token)
     return readyClient

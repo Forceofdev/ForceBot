@@ -4,7 +4,7 @@ import { CommandInteraction } from 'discord.js';
 async function testCommand(interaction) {
     const commands = await globalThis.GetSigmaPackage('commands')
     const SigmaCommandInteraction = commands.SigmaCommandInteraction
-    const sigma_interaction = Object.setPrototypeOf(interaction, SigmaCommandInteraction.prototype);
+    const sigma_interaction = Object.setPrototypeOf(interaction, SigmaCommandInteraction.prototype) // Set the prototype of the interaction to our custom interaction - adding our custom functions
 
     sigma_interaction.sendEmbed({ title: 'sigma_interaction prototype test', text: 'A test of the new sigma_interaction prototype override for the CommandInteraction class' })
 }
