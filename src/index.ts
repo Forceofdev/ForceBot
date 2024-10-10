@@ -1,5 +1,5 @@
 import {GetSigmaPackage, print} from 'sigmaframework'
-import { CommandInteraction } from 'discord.js';
+import { CommandInteraction, Routes } from 'discord.js';
 
 async function testCommand(interaction) {
     const commands = await globalThis.GetSigmaPackage('commands')
@@ -16,6 +16,38 @@ async function handleJsExecute(interaction: CommandInteraction) {
     print('COMMANDS', 'Received JS command')
 }
 
+async function getMessages(channel, searchContent) {
+    const messages = await channel.messages.fetch({ limit: 100 })
+    const query = (message) => {
+        console.log(message.content)
+        return message.content.toLowerCase().includes(searchContent)
+    }
+    console.log(query)
+
+    const queriedMessages = messages.filter(query)
+    queriedMessages.forEach(message => {
+        message.delete()
+    });
+
+    console.log(queriedMessages)
+    if(queriedMessages.length == 100) {
+        getMessages(channel, searchContent)
+    } else {
+        return
+    }
+}
+
+async function queryMessages(interaction) {
+    const contentToQuery = interaction.options.get('content')
+    const channel = interaction.channel
+
+    console.log(contentToQuery)
+
+    getMessages(channel, contentToQuery.value).then(() => {
+        interaction.reply('Success!')
+    })
+}
+
 async function main() {
     const SigmaClient = await GetSigmaPackage('sigmaClient', true);
     const SigmaCommands = await GetSigmaPackage('commands', true)
@@ -26,6 +58,7 @@ async function main() {
     a.on('ready', () => {
         SigmaCommands.new({ name: 'js_execute', description: 'Execute javascript', permissions: { developer: true }, run: handleJsExecute, options: [{ name: 'execution_code', description: 'uhmmmm... skibidi?', type: 3 }]})
         SigmaCommands.new({ name: 'test', description: 'A test of the SigmaCommands.new method', permissions: { developer: true }, run: testCommand})
+        SigmaCommands.new({ name: 'deletemessages', description: 'Delete all messages which contain a keyword', permissions: { developer: true }, run: queryMessages, options: [{ name: 'content', description: 'What content to query', type: 3 }] })
     })
 }
 
